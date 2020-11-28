@@ -1,0 +1,169 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+ul {
+  margin: 0;
+}
+
+
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: green;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: rgb(124, 0, 0);
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.book-img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin-right: 5px;
+  float: left;
+  clear: both;
+}
+
+
+.book-account-img {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  margin-right: 5px;
+  float: left;
+  clear: both;
+}
+
+
+.book-content {
+  clear: left
+}
+
+
+.dropdown-menu  {
+  background-color: rgb(3, 87, 24);
+  border-radius: 10px;
+}
+
+#dr-item {
+  color: black;
+  background-color: rgb(3, 145, 22);
+}
+
+#dr-item:hover {
+  color: red;
+  background-color: rgb(2, 207, 29);
+}
+
+
+#dr-bg {
+  background-color: rgb(44, 43, 43);
+}
+
+#dr-bg:hover {
+  background-color: black;
+}
+
+#dr-toggle {
+  color: snow;
+  border-radius: 10%;
+}
+
+#dr-toggle:hover {
+  font-size: large;
+  color: red;
+  border-bottom: solid 0.1px red;
+  border-radius: 40%;
+}
+
+
+
+#nav-br {
+  color: rgb(30, 255, 0);
+}
+
+
+#nav-br:hover {
+  color: red
+}
+
+.book-intro {
+  text-align: left;
+}
+#navbarSupportedContent-555 {
+  background: linear-gradient(90deg, black, rgb(0, 255, 34), black); 
+  border-radius: 0 50px 50px 0;
+  border-right: solid rgb(0, 0, 0);
+}
+
+#navbarSupportedContent-555:hover {
+  background: linear-gradient(90deg, black, rgb(0, 255, 34), black); 
+  border-radius: 0 50px 50px 0;
+  border-right: solid red;
+}
+
+
+#nav-link {
+  color: snow;
+  margin-left: 15px;
+}
+#nav-link:hover {
+  font-size: large;
+  color: red;
+  border-bottom: solid 0.1px red;
+  border-radius: 40%;
+}

@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+<title>Book Detail</title>
+{% endblock %}
+
+
+{% block body %}
+    <div class="container media content-section">
+      <article style="border-radius: 50px 50px 50px 50px; background-image: url('/static/img/1.png')">
+      <img class="book-account-img " src="{{ book.author.profile.image.url }}" >
+      <div>
+        <p style="float: right;" class="text-muted ml-4">{{ book.date_created|date:"F d, Y" }}</p>
+            {% if object.author == user %}
+                <div style="float: right; position: relative; bottom: 10px;">
+                    <a style="font-weight: bold; box-shadow: 3px 3px rgb(201, 207, 212)" class="btn btn-light btn-sm mt-1 mb-1" href="{% url 'book-update' object.id %}">Update</a>
+                    <a style="font-weight: bold; box-shadow: 3px 3px rgb(133, 115, 115)" class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'book-delete' object.id %}">Delete</a>
+                </div>
+            {% endif %}
+        <p><strong>{{ book.name }}</strong>  by<a class="mr-2" href="#"> {{ book.author }}</a> </p>
+        <small>Genre: {{ book.genre }}</small>
+      </div>
+        <div class="container" style="width: 90%; text-align: center;">
+          <h1><a class="article-title">{{ book.title|title }}</a></h1>
+        </div>
+        <img src="{{ book.image.url }}" style="float: right;" class="rounded-circle book-img">
+        <div style="width: 90%; text-align: center;">
+          <h4 class="book-intro">{{ book.intro }}</h4>
+        </div>
+        <em class="book-content">{{ book.content }}</em>
+      </article>
+    </div>
+{% endblock %}
+        <!-- 
+        {% if object.author == user %}
+          <div style="float: right; position: relative; bottom: 10px;">
+              <a style="font-weight: bold; box-shadow: 3px 3px rgb(201, 207, 212)" class="btn btn-light btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+              <a style="font-weight: bold; box-shadow: 3px 3px rgb(133, 115, 115)" class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+
+      {% if is_paginated %}
+        {% if page_obj.has_previous %}
+          <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+      {% endif %}  -->

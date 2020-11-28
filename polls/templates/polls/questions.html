@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+
+    {% for quest in questions %}
+        {{ quest }}
+    {% endfor %}
+
+{% endblock %}

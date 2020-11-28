@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+<title>New Book</title>
+{% endblock %}
+
+{% block body %}
+    <div class="content-section" style="background-image: url('/static/img/img 1.jpg')">
+        <form class="uniForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border_bottom mb-4">New Book</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Create a Book</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+<title>Delete?</title>
+{% endblock %}
+
+{% block body %}
+    <div class="content-section" style="text-align: center; border-radius: 50px; background: linear-gradient(45deg, aliceblue, rgb(225, 225, 247));">
+        <form class="uniForm" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <h1 class="border_bottom mb-4" style="color: red; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Delete Post</h1>
+                <h4 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Are you sure you want to delete the Post?</h4>
+                <h3 style="color: rgb(21, 1, 36);">"{{ object.title|title }}"</h3>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

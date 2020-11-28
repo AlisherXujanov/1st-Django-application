@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+<title>Logout</title>
+{% endblock %}
+
+{% block body %}
+    <h2 style="color: black; ">You have been logged out!</h2>
+        <div class="border-top pt-3" style="background-image: url('/static/img/photo .jpg')">
+            <small class="text-muted">
+               <a href="{% url 'login' %}"> Log in again </a>
+            </small>
+        </div>
+    
+{% endblock %}
