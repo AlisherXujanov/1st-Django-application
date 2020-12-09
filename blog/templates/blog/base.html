@@ -35,10 +35,6 @@
 
 <body style=" background-image: url('/static/img/img 3.jpg'); background-attachment: fixed;">
 
-
-
-
-
   <header class="site-header">
     <div class="navbar-nav">
       <section>
@@ -48,6 +44,7 @@
           style="background-color: black; border-radius: 0 0 60px 40px; border-bottom: solid green;">
           <a class="navbar-brand mr-4" id="nav-br" style="font-family: 'Times New Roman', Times, serif; "
             href="{% url 'blog-home' %}">Ali-Company</a>
+
           <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -111,8 +108,15 @@
             </ul>
             {% else %}
             <ul class="navbar-nav ml-auto nav-flex-icons">
-              <a class="mr-3" id="nav-link" href="{% url 'login' %}">Login</a>
-              <a class="mr-3" id="nav-link" href="{% url 'register' %}">Register</a>
+              <a class="mr-3" id="nav-link" href="{% url 'login' %}">
+                <g-emoji class="g-emoji" alias="grinning"
+                  fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f600.png">😇</g-emoji>Login
+              </a>
+              <a class="mr-3" id="nav-link" href="{% url 'register' %}">
+                <g-emoji class="g-emoji" alias="grinning"
+                  fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f600.png">😍</g-emoji>
+                Register
+              </a>
               <img src="{% static 'img/1.png' %}" class="rounded-circle article-img">
             </ul>
             {% endif %}
