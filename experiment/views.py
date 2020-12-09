@@ -1,22 +1,19 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Book
-from django.contrib.auth.models import User
+from typing import List
+from users.views import register
+from django.shortcuts import render, redirect
+from .models import Book, Task
+from .forms import TaskForm
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    View
 )
-
-
-# def books_home(request):
-#     num_books = Book.objects.all()
-#     context = {
-#         'num_books': num_books
-#     }
-#     return render(request, 'Books/books_home.html', context)
 
 
 class BookListView(ListView):
@@ -24,9 +21,8 @@ class BookListView(ListView):
     context = {
         'books': Book.objects.all()
     }
-
     model = Book
-    template_name = 'experiment/book_home.html' #<app>/<model>_<viewtype>.html
+    template_name = 'experiment/book_home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'books'
     ordering = ['-date_created']
     paginate_by = 1
@@ -35,24 +31,22 @@ class BookListView(ListView):
 class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
 
-  
 
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     fields = ['name', 'genre', 'image', 'title', 'intro', 'content']
     succes_url = 'book-home'
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
 
 
 class BookUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     model = Book
     fields = ['name', 'genre', 'image', 'title', 'intro', 'content']
     succes_url = 'book-home'
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -62,7 +56,6 @@ class BookUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
         if self.request.user == book.author:
             return True
         return False
-
 
 
 class BookDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
@@ -76,5 +69,36 @@ class BookDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
         return False
 
 
+# <<<<<<<<<--------<<<<<<<<---------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Vue Beginning
+class TaskView(ListView):
+    Task.objects.all().delete()
 
-    
+    def get(self, request):
+        tasks = list(Task.objects.values())
+        if request.is_ajax():
+            return JsonResponse({'tasks': tasks}, status=200)
+
+        return render(request, 'experiment/vueTest.html')
+
+    def post(self, request):
+        bound_form = TaskForm(request.POST)
+
+        if bound_form.is_valid():
+            new_task = bound_form.save()
+            return JsonResponse({'task': model_to_dict(new_task)}, status=200)
+
+        return redirect('vueTest')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['tasks'] = Task.objects.all()
+        return context_data
+
+
+# class BaseView(ListView):
+#     model = Task
+#     context = {
+#         "tasks": Task.objects.all()
+#     }
+#     context_object_name = 'tasks'
+#     template_name = 'experiment/vueTest.html'

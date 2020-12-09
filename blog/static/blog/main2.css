@@ -1,0 +1,22 @@
+#app {
+    border-radius: 10px;
+    font-weight: bold;
+    background: url("https://png.pngtree.com/thumb_back/fh260/background/20200616/pngtree-green-background-lights-effect-image_339269.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#del {
+    background-color: red;
+    border-radius: 50%;
+    width: 30px;
+}
+
+a.first::after {
+    content:'...'
+  }
+  
+a.last::before {
+    content:'...'
+  }

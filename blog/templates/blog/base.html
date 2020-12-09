@@ -1,52 +1,63 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 
-      {% block title %}    
-        {% if title %}
-            <title>{{ title }}</title>
-        {% else %}
-            <title>Ali Company</title>
-        {% endif %}
-      {% endblock %}
+  {% block title %}
+  {% if title %}
+  <title>{{ title }}</title>
+  {% else %}
+  <title>Ali Company</title>
+  {% endif %}
+  {% endblock %}
+
+  {% block head %}
+  {% endblock %}
 </head>
-<body style=" background-image: url('/static/img/img 3.jpg'); background-attachment: fixed;">
-   
-  
-  
-  
-  
-    <header class="site-header">
-      <div class="navbar-nav">
-        <section>
 
-          <!--Navbar -->
-          <nav class="mb-1 navbar navbar-expand-lg navbar-dark lighten-1" style="background-color: black; border-radius: 0 0 60px 40px; border-bottom: solid green;">
-            <a class="navbar-brand mr-4" id="nav-br" style="font-family: 'Times New Roman', Times, serif; " href="{% url 'blog-home' %}">Ali-Company</a>
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse" id="navbarSupportedContent-555">
-              <ul class="navbar-nav mr-auto">
-                <div class="collapse navbar-collapse" id="navbarToggle" >
-                  
-                 <li class="nav-item">
+<body style=" background-image: url('/static/img/img 3.jpg'); background-attachment: fixed;">
+
+
+
+
+
+  <header class="site-header">
+    <div class="navbar-nav">
+      <section>
+
+        <!--Navbar -->
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark lighten-1"
+          style="background-color: black; border-radius: 0 0 60px 40px; border-bottom: solid green;">
+          <a class="navbar-brand mr-4" id="nav-br" style="font-family: 'Times New Roman', Times, serif; "
+            href="{% url 'blog-home' %}">Ali-Company</a>
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto">
+              <div class="collapse navbar-collapse" id="navbarToggle">
+
+                <li class="nav-item">
                   <a id="nav-link" href="{% url 'book-home' %}">Books
                     <span class="sr-only">(current)</span>
                   </a>
@@ -56,53 +67,60 @@
                   <a id="nav-link" href="{% url 'blog-home' %}">Posts</a>
                 </li>
                 <li class="nav-item">
-                  <a id="nav-link" href="{% url 'blog-about' %}">About</a>
-                </li> 
+                  <a id="nav-link" href="{% url 'vueTest' %}">Fancy-Vue</a>
+                </li>
                 {% if user.is_authenticated %}
-                  <li class="nav-item avatar dropdown">
-                    <div class="dropdown">
-                      <a class="dropdown-toggle ml-3" id="dr-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Create
-                      </a>
-                      <div id="dr-bg" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" id="dr-item" style="font-weight: bold;" href="{% url 'post-create' %}">POST</a>
-                        <a class="dropdown-item" id="dr-item" style="font-weight: bold;" href="{% url 'book-create' %}">BOOK</a>
-                      </div>
-                    </div>
-                  </li>
-                {% endif %}
-              
-              </ul>
-
-              {% if user.is_authenticated %}
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-                  <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light">1  
-                      <i class="fas fa-envelope"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+                <li class="nav-item avatar dropdown">
+                  <div class="dropdown">
+                    <a class="dropdown-toggle ml-3" id="dr-toggle" href="#" role="button" id="dropdownMenuLink"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Create
                     </a>
                     <div id="dr-bg" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" id="dr-item" style="font-weight: bold;" href="{% url 'profile' %}">Profile</a>
-                      <a class="dropdown-item" id="dr-item" style="font-weight: bold;" href="{% url 'logout' %}">Logout</a>
+                      <a class="dropdown-item" id="dr-item" style="font-weight: bold;"
+                        href="{% url 'post-create' %}">POST</a>
+                      <a class="dropdown-item" id="dr-item" style="font-weight: bold;"
+                        href="{% url 'book-create' %}">BOOK</a>
+                      <a class="dropdown-item" id="dr-item" style="font-weight: bold;"
+                        href="{% url 'blog-about' %}">About</a>
                     </div>
-                  </li>
-                </ul>
-              {% else %}
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-                  <a class="mr-3" id="nav-link" href="{% url 'login' %}">Login</a>
-                  <a class="mr-3" id="nav-link" href="{% url 'register' %}">Register</a>
-                  <img src="{% static 'img/1.png' %}" class="rounded-circle article-img">
-                </ul>
-              {% endif %}
-            </div>
-          </nav>
-        </div>
-        <!--/Old Navbar -->
-        <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="border-bottom: solid red 2px; border-radius: 0 0 30px 30px; background: linear-gradient(45deg, black, green, black)">
+                  </div>
+                </li>
+                {% endif %}
+
+            </ul>
+
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+              <li class="nav-item">
+                <a class="nav-link waves-effect waves-light">1
+                  <i class="fas fa-envelope"></i>
+                </a>
+              </li>
+              <li class="nav-item avatar dropdown">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <img class="rounded-circle article-img" src="{{ user.profile.image.url }}">
+                </a>
+                <div id="dr-bg" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" id="dr-item" style="font-weight: bold;"
+                    href="{% url 'profile' %}">Profile</a>
+                  <a class="dropdown-item" id="dr-item" style="font-weight: bold;" href="{% url 'logout' %}">Logout</a>
+                </div>
+              </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+              <a class="mr-3" id="nav-link" href="{% url 'login' %}">Login</a>
+              <a class="mr-3" id="nav-link" href="{% url 'register' %}">Register</a>
+              <img src="{% static 'img/1.png' %}" class="rounded-circle article-img">
+            </ul>
+            {% endif %}
+          </div>
+        </nav>
+    </div>
+    <!--/Old Navbar -->
+    <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="border-bottom: solid red 2px; border-radius: 0 0 30px 30px; background: linear-gradient(45deg, black, green, black)">
           <div class="container">
             <a class="navbar-brand mr-4" id="nav-br" style="font-family: 'Times New Roman', Times, serif; " href="{% url 'blog-home' %}">Ali-Company</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,47 +157,52 @@
               </div>
           </div>
         </nav> -->
-      </header>
-      <main role="main" class="container">
-        <div class="row">
-          <div class="col-md-8">
-            {% if messages %}
-              {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-            {% block body %} {% endblock %}
-          </div>
-          <div class="col-md-4">
-            <div class="content-section">
-              <h3>Sidebar</h3>
-              <p class='text-muted'>You can put any information here you'd like.
-                <ul class="list-group">
-                  <li class="list-group-item list-group-item-action list-group-item-light">Latest Posts</li>
-                  <li class="list-group-item list-group-item-action list-group-item-light">Announcements</li>
-                  <li class="list-group-item list-group-item-action list-group-item-light">Calendars</li>
-                  <li class="list-group-item list-group-item-action list-group-item-light">etc</li>
-                </ul>
-              </p>
-            </div>
-          </div>
+  </header>
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
         </div>
-      </main>
-      <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- JQuery -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <!-- Bootstrap tooltips -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script> -->
-    <!-- Bootstrap core JavaScript -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
-    <!-- MDB core JavaScript -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script> -->
-    
+        {% endfor %}
+        {% endif %}
+        {% block body %} {% endblock %}
+      </div>
+      <div class="col-md-4">
+        <div class="content-section">
+          <h3>Sidebar</h3>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-action list-group-item-light">Announcements</li>
+            <li class="list-group-item list-group-item-action list-group-item-light">Calendars</li>
+            <li class="list-group-item list-group-item-action list-group-item-light">etc</li>
+          </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <!-- JQuery -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <!-- Bootstrap tooltips -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+  <!-- MDB core JavaScript -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script> -->
+
 </body>
+
 </html>

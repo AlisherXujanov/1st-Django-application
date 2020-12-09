@@ -1,0 +1,130 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Fancy Vue</title>
+{% endblock %}
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/main2.css' %}">
+<!-- 
+  <div>
+    {% for task in tasks %}
+    <ul>
+      <div class="col-md-4">
+        <div class="content-section">
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-action list-group-item-light">{{ task.title }}</li>
+          </ul>
+          </p>
+        </div>
+      </div>
+    </ul>
+    {% endfor %}
+  </div> -->
+
+<div id="app" class="jumbotron">
+
+  <form @submit.prevent="createTask">
+    <b style="font-style: italic; position: relative; bottom: 20px;">[[ task ]]</b>
+    <div class="form-group row">
+      <div class="col-9">
+        <label style="border-radius: 50px;">Create New Task</label>
+        <input class="form-control" type="text" v-model="task">
+      </div>
+      <div class="d-flex flex-column">
+        <button class="btn btn-success m-4" v-on:keyup.enter="createTask">Create</button>
+      </div>
+    </div>
+  </form>
+  <div class="mt-5">
+    <div class="card mt-2" v-for="(task, index) in taskList" @click="completeTask(task.id, index)"
+      :class="{'completed': task.completed}">
+      <div class="card-body">
+        [[task.title]]
+        <button type="button" id='del' class="close float-right" @click.stop="deleteTask(task.id, index)">
+          <span>&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  function sendRequest(url, method, data) {
+    var r = axios({
+      method: method,
+      url: url,
+      data: data,
+      xsrfCookieName: 'csrftoken',
+      xsrfHeaderName: 'X-CSRFToken',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+    return r
+  }
+
+  var app = new Vue({
+    el: '#app',
+    delimiters: ["[[", "]]"],
+    data: {
+      task: '',
+      tasks: []
+    },
+    created() {
+      var vm = this;
+      var r = sendRequest('', 'get')
+        .then(function (response) {
+          vm.tasks = response.data.tasks;
+        })
+    },
+    computed: {
+      taskList() {
+        function compare(a, b) {
+          if (a.completed > b.completed) {
+            return 1;
+          }
+          if (a.completed < b.completed) {
+            return -1;
+          }
+          return 0;
+        }
+        return this.tasks.sort(compare)
+      }
+    },
+    methods: {
+      createTask() {
+        var vm = this;
+        var formData = new FormData();
+        formData.append('title', this.task);
+
+        sendRequest('', 'post', formData)
+          .then(function (response) {
+            vm.tasks.push(response.data.task);
+            vm.task = '';
+          })
+      },
+      completeTask(id, index) {
+        var vm = this;
+        sendRequest('experiment/vue/' + id + '/complete/', 'post')
+          .then(function (response) {
+            vm.tasks.splice(index, 1);
+            vm.tasks.push(response.data.task);
+          })
+      },
+      deleteTask(id, index) {
+        var vm = this;
+        sendRequest('experiment/vue/' + id + '/delete/', 'post')
+          .then(function (response) {
+            vm.tasks.splice(index, 1);
+          })
+      },
+    }
+  })
+
+</script>
+{% endblock %}
